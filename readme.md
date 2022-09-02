@@ -21,3 +21,6 @@ numbers on each schematic, this is hint that tells you where to put piece
 
 program prewiev:
 ![alt text](https://cdn.discordapp.com/attachments/391020510269669378/1015234361118965840/unknown.png)
+
+
+Anukens Mindustry github: https://github.com/Anuken/Mindustry/
