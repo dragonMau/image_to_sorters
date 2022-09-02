@@ -18,3 +18,6 @@ all these schematics, they are pieces of your art (there can be more than one)
 
 after importing you can build them whenever you want, also you will see
 numbers on each schematic, this is hint that tells you where to put piece
+
+program prewiev:
+![alt text](https://cdn.discordapp.com/attachments/391020510269669378/1015234361118965840/unknown.png)
