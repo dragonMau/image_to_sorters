@@ -3,7 +3,7 @@ import zlib
 from os import mkdir, path
 from sys import argv
 
-from PIL import Image
+from PIL import Image, ImagePalette
 
 split_x, split_y = 32, 32
 total_x, total_y = 32, 32
@@ -29,9 +29,9 @@ colors = {
     (255, 211, 127):  (None, 0)
 }
 
-palette_img = Image.open("./palette.png")
-
-# palette_img = ImagePalette.ImagePalette("P", palette=list(colors.keys()))
+palette_img = Image.new("P", (17, 1))
+for i, p in enumerate(colors.keys()):
+    palette_img.putpixel((i, 0), p)
 
 class Point:
     x: int
@@ -190,8 +190,8 @@ def read(schematic_name):
 def reform_photo(imageB: Image, width: int, height: int):
     global converted
     image = imageB.resize((width, height)).convert("RGB")
-    t: Image = image.quantize(
-        palette=palette_img.convert("P"),
+    t = image.quantize(
+        palette=palette_img,
         method=Image.Quantize.FASTOCTREE,
         dither=Image.Dither.NONE)
     converted = t.convert("RGB")
@@ -232,7 +232,7 @@ def generate(schematic_name):
                     except KeyError as e:
                         log_e = f"Key Error: {e} at {(x,y)}"
                         errors.append(log_e)
-                        config = list(colors.values())[-1]
+                        config = colors[(39, 39, 39)] # black (coal)
                     new_list += write_num(config[1], 1)
                     if config[1] != 0:
                         new_list += write_num(config[0][0], 1) + write_num(config[0][1], 2)
