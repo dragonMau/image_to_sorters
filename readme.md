@@ -1,5 +1,5 @@
 instruction to use this program:
- - start program by running `gui.py`.
+ - start program by running `gui.py` (or if u on windows you can download executable from releases).
  - insert path of image you want to convert to `Source image`. (you can use `Browse` button)
  - edit `piece width` and `piece height` if you want not standart width and
    height of resulting schematics. (you can get more than one)
