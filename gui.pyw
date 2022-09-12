@@ -76,7 +76,7 @@ def load_image(e, skip=False):
         panel_image.configure(image=image_tk)
         panel_image.image = image_tk
         if not skip:
-            filename_entry.put(path.basename(np)[:path.basename(np).find(".")], True)
+            filename_entry.put(path.basename(np)[:path.basename(np).find(".")].strip(), True)
 
 def show_full(*_):
     tool.converted.show()
@@ -133,16 +133,16 @@ def browse(*_):
     load_image(keysim(13))
 
 def export(*_):
-    name = filename_entry.get()
+    name = filename_entry.get().strip()
     if not path.isdir("./out"):
         mkdir("./out")
     if path.isdir(f"./out/{name}"):
         i = 1
-        while path.isdir(f"./out/{name} ({i})"):
+        while path.isdir(f"./out/{name}({i})"):
             i += 1
-        mkdir(f"./out/{name} ({i})")
-        result = tool.generate(f"{name} ({i})")
-        dest_label.configure(text=f"{abs_path}/{name} ({i})/")
+        mkdir(f"./out/{name}({i})")
+        result = tool.generate(f"{name}({i})")
+        dest_label.configure(text=f"{abs_path}/{name}({i})/")
     else:
         mkdir(f"./out/{name}")
         result = tool.generate(name)
@@ -201,6 +201,7 @@ def start():
     console_scrole.pack(anchor="nw", fill="both", expand=False, side="left")
     
     sys.stdout = custom.StdoutRedirector(console_box)
+    sys.stderr = custom.StdoutRedirector(console_box)
     
     root.mainloop()
 

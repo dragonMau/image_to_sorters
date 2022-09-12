@@ -33,6 +33,10 @@ palette_img = Image.new("P", (17, 1))
 for i, p in enumerate(colors.keys()):
     palette_img.putpixel((i, 0), p)
 
+def to_str(raw: str, n: int):
+    cl = len(raw)
+    return "0"*(n-cl) + raw
+
 class Point:
     x: int
     y: int
@@ -212,12 +216,15 @@ def generate(schematic_name):
             list_converted[-1].append(converted.transpose(Image.Transpose.FLIP_TOP_BOTTOM).crop(box).convert("RGB"))
     # print(list_converted)
     list_schemes = {}
+    nx = len(str(max(len(list_converted), len(list_converted[0]))))
     for ix, img_x in enumerate(list_converted):
         for iy, img_y in enumerate(img_x):
             width, height = img_y.size
             #print(f"{width, height = }")
+            six = to_str(str(ix), nx)
+            siy = to_str(str(iy), nx) # they same so i used and made nx twice
             new_list  = write_num(width, 2) + write_num(height, 2) + write_num(3, 1)
-            new_list += write_utf("name") + write_utf(schematic_name+f"_{ix}_{iy}")
+            new_list += write_utf("name") + write_utf(schematic_name+f"_{six}_{siy}")
             new_list += write_utf("description") + write_utf("")
             new_list += write_utf("labels") + write_utf("[art]")
             new_list += [1] + write_utf("sorter") + write_num(width * height, 4)
@@ -237,7 +244,7 @@ def generate(schematic_name):
                     if config[1] != 0:
                         new_list += write_num(config[0][0], 1) + write_num(config[0][1], 2)
                     new_list += write_num(0, 1)
-            list_schemes[f"{schematic_name}_{ix}_{iy}"] = new_list
+            list_schemes[f"{schematic_name}_{six}_{siy}"] = new_list
     
     for name, s_bytes in list_schemes.items():
         with open(f"./out/{schematic_name}/{name}.msch", "wb") as f:

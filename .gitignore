@@ -2,3 +2,6 @@ out/*
 in/*
 __pycache__
 releases
+build
+build.ps1
+run.bat
