@@ -1,3 +1,5 @@
+A program that converts images to mindustry sorters schematic
+
 instruction to use this program:
  - start program by running `gui.py` (or if u on windows you can download executable from releases).
  - insert path of image you want to convert to `Source image`. (you can use `Browse` button)
